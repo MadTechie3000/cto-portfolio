@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const sortedArticles = articles
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((article) => ({
+    slug: article.id,
+    title: article.data.title,
+    description: article.data.description,
+    date: article.data.date,
+    tags: article.data.tags,
+  }));
+---
+
+<BaseLayout title="Articles" description="Technical articles on cloud architecture, AI, security, and software engineering.">
+  <section class="articles-hero">
+    <div class="container">
+      <h1>Articles</h1>
+      <p class="lead">Technical writing on engineering practices and emerging technologies.</p>
+    </div>
+  </section>
+
+  <section class="articles-list">
+    <div class="container">
+      {sortedArticles.map((article) => (
+        <article class="article-card">
+          <h3><a href={`/articles/${article.slug}`}>{article.title}</a></h3>
+          <p>{article.description}</p>
+          <div class="article-meta">
+            <time datetime={article.date.toISOString()}>
+              {article.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </time>
+            <ul class="article-tags">
+              {article.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .articles-hero {
+    padding: 6rem 0 3rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--color-surface);
+    text-align: center;
+  }
+
+  .articles-hero .lead {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    opacity: 0.9;
+  }
+
+  .articles-list {
+    padding: 4rem 0;
+  }
+
+  .article-card {
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.15s;
+  }
+
+  .article-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .article-card h3 a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .article-card h3 a:hover {
+    color: var(--color-primary-light);
+  }
+
+  .article-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .article-tags li {
+    background: var(--color-background);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .articles-hero h1 {
+      font-size: 1.75rem;
+    }
+
+    .article-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+</style>

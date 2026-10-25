@@ -1,0 +1,63 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-section">
+      <p>&copy; {new Date().getFullYear()} CTO Portfolio. All rights reserved.</p>
+    </div>
+    <div class="footer-section">
+      <nav aria-label="Social links">
+        <ul class="social-links">
+          <li>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    padding: 2rem 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .social-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+  }
+
+  .social-links a {
+    color: var(--color-surface);
+    opacity: 0.8;
+    transition: opacity 0.15s;
+  }
+
+  .social-links a:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

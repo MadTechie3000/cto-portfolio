@@ -1,0 +1,65 @@
+
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/qwen3.6:27b",
+  "small_model": "ollama/qwen3.5:4b",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama Local",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+      "models": {
+        "qwen3.6:27b": {
+          "name": "Qwen 27B General"
+        },
+        "richardyoung/qwen3.6-27b-code-abliterated:Q4_K_M": {
+          "name": "Qwen 27B Coding"
+        },
+        "richardyoung/qwen2.5-coder-14b-instruct-abliterated:latest": {
+          "name": "Qwen 14B Coding"
+        },
+        "gemma4:26b": {
+          "name": "Gemma 26B Writing"
+        },
+        "glm-4.7-flash:q4_K_M": {
+          "name": "GLM 4.7 Flash"
+        },
+        "qwen3.5:9b": {
+          "name": "Qwen 9B Review"
+        },
+        "qwen3.5:4b": {
+          "name": "Qwen 4B Lightweight"
+        }
+      }
+    }
+  },
+  "agent": {
+    "coordinator": {
+      "description": "Coordinates development and delegates specialist tasks",
+      "mode": "primary",
+      "model": "ollama/qwen3.6:27b",
+      "prompt": "You are an autonomous technical lead. Plan implementation, delegate coding and writing tasks, run tests, and track progress. Do not claim completion without verification."
+    },
+    "coder": {
+      "description": "Implements, debugs and tests software",
+      "mode": "subagent",
+      "model": "ollama/richardyoung/qwen3.6-27b-code-abliterated:Q4_K_M",
+      "prompt": "You are an expert software engineer. Write maintainable code, execute tests, diagnose failures and fix problems."
+    },
+    "writer": {
+      "description": "Produces technical articles and website content",
+      "mode": "subagent",
+      "model": "ollama/gemma4:26b",
+      "prompt": "You are a professional UK English technical writer. Produce accurate, readable technical articles and website content. Never fabricate credentials or achievements."
+    },
+    "reviewer": {
+      "description": "Reviews code, security and quality",
+      "mode": "subagent",
+      "model": "ollama/qwen3.5:9b",
+      "prompt": "You are a technical reviewer. Inspect code and requirements, identify concrete problems, and report actionable findings."
+    }
+  }
+}
+

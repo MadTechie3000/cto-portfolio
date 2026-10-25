@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Home" description="Technology Leadership for Modern Teams. UK-based CTO, software engineer and technology consultant.">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Technology Leadership for Modern Teams</h1>
+      <p class="hero-subtitle">
+        UK-based CTO, software engineer and technology consultant specialising in
+        cloud infrastructure, AI integration and secure software development.
+      </p>
+      <div class="hero-actions">
+        <a href="/contact" class="btn btn-primary">Get in Touch</a>
+        <a href="/about" class="btn btn-secondary">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise Section -->
+  <section class="expertise" id="expertise">
+    <div class="container">
+      <h2 class="text-center">Areas of Expertise</h2>
+      <div class="expertise-grid">
+        <article class="expertise-card">
+          <h3>Cloud Infrastructure</h3>
+          <p>
+            Design and delivery of scalable, cloud-native architectures on
+            major platforms including Google Cloud Platform and AWS.
+          </p>
+        </article>
+        <article class="expertise-card">
+          <h3>AI &amp; Automation</h3>
+          <p>
+            Integration of large language models and AI-powered workflows
+            to automate processes and improve outcomes.
+          </p>
+        </article>
+        <article class="expertise-card">
+          <h3>Security &amp; DevSecOps</h3>
+          <p>
+            Security-first development practices, vulnerability management
+            and compliance-ready infrastructure.
+          </p>
+        </article>
+        <article class="expertise-card">
+          <h3>Software Engineering</h3>
+          <p>
+            Full-stack application development, API design and engineering
+            leadership for distributed teams.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Teaser -->
+  <section class="projects-teaser">
+    <div class="container">
+      <h2 class="text-center">Featured Projects</h2>
+      <p class="text-center text-secondary">
+        Explore case studies covering AI-powered translation, cloud-native APIs
+        and local development agents.
+      </p>
+      <p class="text-center">
+        <a href="/projects" class="btn btn-primary">View Projects</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Articles Teaser -->
+  <section class="articles-teaser">
+    <div class="container">
+      <h2 class="text-center">Recent Articles</h2>
+      <p class="text-center text-secondary">
+        Insights on local AI, API development, cloud architecture and security.
+      </p>
+      <p class="text-center">
+        <a href="/articles" class="btn btn-primary">Read Articles</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="text-center">Ready to Collaborate?</h2>
+      <p class="text-center text-secondary">
+        Whether you need fractional CTO support, a technical audit or a
+        development partner, I am here to help.
+      </p>
+      <p class="text-center">
+        <a href="/contact" class="btn btn-primary">Contact Me</a>
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--color-surface);
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--color-surface);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.15s, transform 0.1s;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-primary {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-surface);
+    border: 2px solid var(--color-surface);
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-surface);
+  }
+
+  /* Expertise grid */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .expertise-card {
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  .expertise-card h3 {
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+  }
+
+  /* Teasers */
+  .projects-teaser,
+  .articles-teaser,
+  .cta {
+    text-align: center;
+  }
+
+  .projects-teaser,
+  .articles-teaser {
+    background-color: var(--color-surface);
+  }
+
+  .cta {
+    background-color: var(--color-background);
+  }
+
+  .text-center p {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 1.75rem;
+    }
+  }
+</style>

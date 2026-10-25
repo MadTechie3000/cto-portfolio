@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+  }));
+}
+
+const project = (await getEntry('projects', Astro.params.slug))!;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <article class="project-detail">
+    <div class="container">
+      <header class="project-header">
+        <a href="/projects" class="back-link">&larr; Back to Projects</a>
+        <h1>{project.data.title}</h1>
+        <p class="project-subtitle">{project.data.description}</p>
+        <div class="project-info">
+          <time datetime={project.data.date.toISOString()}>
+            {project.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </time>
+          <span class="status-badge">{project.data.status}</span>
+        </div>
+      </header>
+
+      <div class="project-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-detail {
+    padding: 3rem 0 6rem;
+  }
+
+  .project-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .project-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-top: 0.5rem;
+  }
+
+  .project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .status-badge {
+    background: var(--color-background);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.4rem;
+  }
+</style>
