@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+  }));
+}
+
+const article = (await getEntry('articles', Astro.params.slug))!;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={article.data.title} description={article.data.description}>
+  <article class="article-detail">
+    <div class="container">
+      <header class="article-header">
+        <a href="/articles" class="back-link">&larr; Back to Articles</a>
+        <h1>{article.data.title}</h1>
+        <p class="article-subtitle">{article.data.description}</p>
+        <time datetime={article.data.date.toISOString()} class="article-date">
+          {article.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+      </header>
+
+      <div class="article-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-detail {
+    padding: 3rem 0 6rem;
+  }
+
+  .article-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .article-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-top: 0.5rem;
+  }
+
+  .article-date {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+</style>

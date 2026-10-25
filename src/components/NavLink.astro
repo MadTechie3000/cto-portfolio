@@ -1,0 +1,40 @@
+---
+interface Props {
+  name: string;
+  href: string;
+  current?: boolean;
+}
+const { name, href, current } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    'nav-link',
+    { active: current }
+  ]}
+  aria-current={current ? 'page' : undefined}
+>
+  {name}
+</a>
+
+<style>
+  .nav-link {
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: color 0.15s, background-color 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--color-secondary);
+    background-color: var(--color-background);
+  }
+
+  .nav-link.active {
+    color: var(--color-secondary);
+    font-weight: 600;
+  }
+</style>

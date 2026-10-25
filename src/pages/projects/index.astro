@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const sortedProjects = projects
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((project) => ({
+    slug: project.id,
+    title: project.data.title,
+    description: project.data.description,
+    date: project.data.date,
+    technologies: project.data.technologies,
+    status: project.data.status,
+  }));
+---
+
+<BaseLayout title="Projects" description="Case studies and project work covering cloud infrastructure, AI, and software engineering.">
+  <section class="projects-hero">
+    <div class="container">
+      <h1>Projects</h1>
+      <p class="lead">Case studies showcasing real-world engineering challenges and solutions.</p>
+    </div>
+  </section>
+
+  <section class="projects-grid">
+    <div class="container">
+      {sortedProjects.map((project) => (
+        <article class="project-card">
+          <h3><a href={`/projects/${project.slug}`}>{project.title}</a></h3>
+          <p>{project.description}</p>
+          <div class="project-meta">
+            <span class="project-date">{project.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}</span>
+            <span class="project-status">{project.status}</span>
+          </div>
+          <ul class="project-tech">
+            {project.technologies.map((tech) => (
+              <li>{tech}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-hero {
+    padding: 6rem 0 3rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: var(--color-surface);
+    text-align: center;
+  }
+
+  .projects-hero .lead {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    opacity: 0.9;
+  }
+
+  .projects-grid {
+    padding: 4rem 0;
+  }
+
+  .projects-grid .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.15s, transform 0.1s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .project-card h3 a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .project-card h3 a:hover {
+    color: var(--color-primary-light);
+  }
+
+  .project-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .project-status {
+    background: var(--color-background);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.4rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin-top: 1rem;
+    padding: 0;
+  }
+
+  .project-tech li {
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-hero h1 {
+      font-size: 1.75rem;
+    }
+
+    .projects-grid .container {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
