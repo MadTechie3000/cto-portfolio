@@ -27,3 +27,8 @@ All 17 pages verified working. Build passes cleanly.
 
 ## Next actions
 (Scope complete. All issues resolved.)
+
+### Google AdSense
+- Added AdSense loader script (`ca-pub-6220611457306568`) to `<head>` in `BaseLayout.astro` (`is:inline` so Astro emits it verbatim).
+- Added `public/ads.txt` authorising the publisher ID.
+- Verified: `npm run check` 0 errors; `npm run build` 17 pages, script present in all 17, `dist/ads.txt` emitted.
